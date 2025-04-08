@@ -94,8 +94,7 @@ Drink Decision Tree
    DRINK ROOT BEER
   TASTE: TART
    COST: 75 CENTS
-
     DRINK COKE
-     COST: 80 CENTS
-      DRINK PEPSI
+   COST: 80 CENTS
+    DRINK PEPSI
 ```
