@@ -67,7 +67,6 @@ Drink Decision Tree
   WHAT IS THE TASTE?
   WHAT IS THE COLOR?
   WHAT IS THE PRICE?
-OUTPUT FILE (D)
 ```
 
 Typing "perm A B C > D" from the command prompt should create Output File D with minimal paths to the recommended actions.
@@ -96,6 +95,6 @@ Drink Decision Tree
   TASTE: TART
    COST: 75 CENTS
     DRINK COKE
-     COST: 80 CENTS
-      DRINK PEPSI
+   COST: 80 CENTS
+    DRINK PEPSI
 ```
