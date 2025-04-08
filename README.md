@@ -30,12 +30,14 @@ TITLE
   COLOR: TAN
   COST: 75 CENTS
   TASTE: SWEET
+```
   
 Attribute tags (COLOR, COST, TASTE) are optional, but the files must be consistent.
 
 ## CATEGORY FILE (B)
 The second file which is derived from the Attribute File and has the following structure:
 
+```
 TITLE
  WHAT IS THE PRICE?
   COST: 75 CENTS
