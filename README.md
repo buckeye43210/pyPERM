@@ -69,8 +69,6 @@ Drink Decision Tree
   WHAT IS THE PRICE?
 ```
 
-## OUTPUT FILE (D)
-
 Typing "perm A B C > D" from the command prompt should create Output File D with minimal paths to the recommended actions.
 
 ```
