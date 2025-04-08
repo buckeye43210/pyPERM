@@ -16,6 +16,7 @@ cat a.mt | unexpand --tabs=1 > a.otl
 ## ATTRIBUTE FILE (A)
 A simple decision tree to select a beverage would use an attribute file as follows:
 
+```
 TITLE
  DRINK COKE
   COLOR: BROWN
@@ -45,10 +46,12 @@ TITLE
  WHAT IS THE TASTE?
   TASTE: SWEET
   TASTE: TART
+```
 
 ## PRIORITY FILE (C)
 The third file which is derived from the Category File is as follows:
 
+```
 Drink Decision Tree
  PRICE BUYER
   WHAT IS THE PRICE?
@@ -62,10 +65,13 @@ Drink Decision Tree
   WHAT IS THE TASTE?
   WHAT IS THE COLOR?
   WHAT IS THE PRICE?
-OUTPUT FILE (D)
+```
+
+## OUTPUT FILE (D)
 
 Typing "perm A B C > D" from the command prompt should create Output File D with minimal paths to the recommended actions.
 
+```
 Drink Decision Tree
  PRICE BUYER
   COST: 75 CENTS
@@ -92,3 +98,4 @@ Drink Decision Tree
     DRINK COKE
      COST: 80 CENTS
       DRINK PEPSI
+```
