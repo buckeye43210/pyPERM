@@ -1,3 +1,18 @@
+Metadata-Version: 2.4
+Name: pyPERM
+Version: 0.1.1
+Summary: A text based decision tree builder
+Home-page: https://github.com/buckeye43210/pyPERM
+Author: Richard L Holbert
+Author-email: rholbert@gmail.com
+License: Apache-2.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
 # Python Implementation of Neil Larson's PERM Decision Tree Builder
 
 This project is a Python implementation of Neil Larson's DOS-based **PERM Decision Tree Builder**, a tool designed to convert three hierarchical input files into a decision tree or search tree. Originally developed for DOS, PERM used text-based input files created with Larson's MaxThink outliner. This implementation preserves that functionality while allowing the use of any ASCII text editor.
