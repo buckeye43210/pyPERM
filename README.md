@@ -13,13 +13,13 @@ This project is a Python implementation of Neil Larson's DOS-based **PERM Decisi
 - [Usage](#usage)
 
 ## Overview
-PERM processes three input files—**Attribute File**, **Category File**, and **Priority File**—to generate a decision tree. These files use a hierarchical structure, with indentation (spaces or tabs) to denote levels. The output is a minimal-path decision tree, useful for decision-making processes like selecting a beverage based on attributes such as cost, color, and taste.
+PERM processes three input files—**Attributes File**, **Category File**, and **Priority File**—to generate a decision tree. These files use a hierarchical structure, with indentation (**tabs**) to denote levels. The output is a minimal-path decision tree, useful for decision-making processes like selecting a beverage based on attributes such as cost, color, and taste.
 
 ## Input Files
 
 ### Attribute File (A)
 
-The **Attribute File** defines the items and their properties. Below is an example for selecting a beverage:
+The **Attributes File** defines the items and their properties. Below is an example of a **tab indented** attributes file for selecting a beverage:
 ```plaintext
 TITLE
     DRINK COKE
@@ -38,10 +38,10 @@ TITLE
 
 - **Notes**:
   - Attribute tags (e.g., `COLOR`, `COST`, `TASTE`) are optional but must be consistent across files.
-  - Indentation indicates hierarchy (use spaces or tabs).
+  - Indentation indicates hierarchy (use **tabs**).
 
 ### Category File (B)
-The **Category File** organizes attributes into decision-making categories. It is derived from the Attribute File:
+The **Category File** organizes attributes into decision-making categories. It is derived from the Attribute File. Below is an example of a **tab indented** category file:
 
 ```plaintext
 TITLE
@@ -58,10 +58,10 @@ TITLE
 
 - **Notes**:
   - Questions group related attributes.
-  - Must align with attributes defined in the Attribute File.
+  - Must align with attributes defined in the Attributes File.
 
 ### Priority File (C)
-The **Priority File** defines the order of decision-making criteria for different user types. It is derived from the Category File:
+The **Priority File** defines the order of decision-making criteria for different user types. It is derived from the Category File. Blow is an example of a **tab indented** priority file:
 
 ```plaintext
 Beverage Decision Tree
@@ -89,13 +89,12 @@ If using a text editor other than MaxThink, ensure compatibility with indentatio
   ```bash
   cat a.otl | expand --tabs=1 > a.mt
   ```
-- **Convert spaces to tabs**:
+- **Convert spaces to tabs (PERM format)**:
   ```bash
   cat a.mt | unexpand --tabs=1 > a.otl
   ```
-
 ## Output Example
-Running `perm A B C > D` generates an output file (`D`) with minimal decision paths:
+Running `perm A B C > D` generates a **tab indented** output file (`D`) with minimal decision paths:
 
 ```plaintext
 Beverage Decision Tree
