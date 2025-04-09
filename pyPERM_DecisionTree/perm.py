@@ -3,10 +3,12 @@
 import sys
 from collections import defaultdict
 
+
 class Item:
     def __init__(self, name):
         self.name = name
         self.attributes = []
+
 
 def parse_attribute_file(content):
     items = []
@@ -29,7 +31,8 @@ def parse_attribute_file(content):
             all_full_attrs.add(full_text)
     return items, all_full_attrs
 
-def parse_category_file(content, all_full_attrs):
+
+def parse_category_file(content, items, all_full_attrs):
     full_categories = {}
     current_category = None
     for line in content.splitlines():
@@ -61,6 +64,7 @@ def parse_category_file(content, all_full_attrs):
                 break
     return full_categories
 
+
 def parse_priority_file(content):
     priorities = {"title": None, "groups": []}
     current_group = None
@@ -78,6 +82,7 @@ def parse_priority_file(content):
         elif indent_level == 2 and current_group:
             current_group["categories"].append(text.strip())
     return priorities
+
 
 def build_decision_tree(items, full_categories, priorities):
     attr_map = defaultdict(list)
@@ -114,15 +119,15 @@ def build_decision_tree(items, full_categories, priorities):
             return [{"attr_value": parent_items[0].name, "sub_branches": []}]
         if not remaining_cats:
             return [{"attr_value": item.name, "sub_branches": []} for item in parent_items]
-        
+
         current_cat = remaining_cats[0]
         sub_values = cat_to_full_values[current_cat]
         sub_branches = []
         seen_values = set()
-        
+
         if not needs_splitting(parent_items, current_cat):
             return build_sub_branches(parent_items, conditions, remaining_cats[1:], top_category)
-        
+
         for full_value in sub_values:
             if full_value in seen_values:
                 continue
@@ -132,14 +137,14 @@ def build_decision_tree(items, full_categories, priorities):
                 sub_branch["sub_branches"] = build_sub_branches(sub_items, conditions | {current_cat: full_value}, remaining_cats[1:], top_category)
                 sub_branches.append(sub_branch)
                 seen_values.add(full_value)
-        
+
         # Simplify with ELSE: when not top category and branches lead to identical outcomes
         if len(sub_branches) > 1 and current_cat != top_category:
             leaf_counts = defaultdict(list)
             for branch in sub_branches:
                 leaves = get_leaf_items(branch["sub_branches"])
                 leaf_counts[tuple(sorted(leaves))].append(branch)
-            
+
             new_branches = []
             consolidated = set()
             for leaf_tuple, branches in leaf_counts.items():
@@ -155,7 +160,7 @@ def build_decision_tree(items, full_categories, priorities):
                 else:
                     new_branches.extend(branches)
             sub_branches = new_branches
-        
+
         if not sub_branches and parent_items:
             return [{"attr_value": item.name, "sub_branches": []} for item in parent_items]
         return sub_branches
@@ -164,7 +169,7 @@ def build_decision_tree(items, full_categories, priorities):
     for group in priorities["groups"]:
         group_tree = {"title": group["title"], "branches": []}
         tree["groups"].append(group_tree)
-        
+
         top_cat = group["categories"][0]
         top_values = cat_to_full_values[top_cat]
         for full_value in top_values:
@@ -175,6 +180,7 @@ def build_decision_tree(items, full_categories, priorities):
                 group_tree["branches"].append(branch)
 
     return tree
+
 
 def print_text_output(tree):
     def print_branch(node, indent=0):
@@ -189,6 +195,7 @@ def print_text_output(tree):
         for branch in group["branches"]:
             print_branch(branch, 2)
     print()
+
 
 def main():
     if len(sys.argv) != 4:
@@ -205,11 +212,12 @@ def main():
         priority_content = f.read()
 
     items, all_full_attrs = parse_attribute_file(attribute_content)
-    full_categories = parse_category_file(category_content, all_full_attrs)
+    full_categories = parse_category_file(category_content, items, all_full_attrs)
     priorities = parse_priority_file(priority_content)
 
     tree = build_decision_tree(items, full_categories, priorities)
     print_text_output(tree)
+
 
 if __name__ == "__main__":
     main()

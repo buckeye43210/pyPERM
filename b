@@ -1,4 +1,4 @@
-TITLE
+Beverate Decision Tree
 	How much does it cost?
 		COST: $0.75
 		COST: $0.80
