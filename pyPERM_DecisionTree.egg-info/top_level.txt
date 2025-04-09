@@ -1,1 +1,1 @@
-pyPERM-DecisionTree
+pyPERM_DecisionTree

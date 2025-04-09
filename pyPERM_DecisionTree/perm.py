@@ -192,7 +192,7 @@ def print_text_output(tree):
 
 def main():
     if len(sys.argv) != 4:
-        print("Usage: python perm.py attr_file cat_file pri_file", file=sys.stderr)
+        print("Usage: perm attr_file cat_file pri_file", file=sys.stderr)
         sys.exit(1)
 
     attr_file, cat_file, pri_file = sys.argv[1:4]
