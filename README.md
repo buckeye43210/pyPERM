@@ -18,8 +18,8 @@ PERM processes three input files—**Attribute File**, **Category File**, and **
 ## Input Files
 
 ### Attribute File (A)
-The **Attribute File** defines the items and their properties. Below is an example for selecting a beverage:
 
+The **Attribute File** defines the items and their properties. Below is an example for selecting a beverage:
 ```plaintext
 TITLE
     DRINK COKE
