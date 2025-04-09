@@ -1,0 +1,2 @@
+[console_scripts]
+perm = pyPERM_DecisionTree.perm:main
