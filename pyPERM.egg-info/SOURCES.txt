@@ -1,0 +1,10 @@
+LICENSE
+pyproject.toml
+setup.cfg
+pyPERM/__init__.py
+pyPERM/perm.py
+pyPERM.egg-info/PKG-INFO
+pyPERM.egg-info/SOURCES.txt
+pyPERM.egg-info/dependency_links.txt
+pyPERM.egg-info/entry_points.txt
+pyPERM.egg-info/top_level.txt
