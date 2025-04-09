@@ -38,7 +38,7 @@ TITLE
 
 - **Notes**:
   - Attribute tags (e.g., `COLOR`, `COST`, `TASTE`) are optional but must be consistent across files.
-  - Indentation indicates hierarchy (use **tabs**).
+  - Indentation indicates hierarchy (using **tabs**).
 
 ### Category File (B)
 The **Category File** organizes attributes into decision-making categories. It is derived from the Attribute File. Below is an example of a **tab indented** category file:
