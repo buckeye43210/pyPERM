@@ -1,8 +1,5 @@
 # Python Implementation of Neil Larson's PERM Decision Tree Builder
 
-This project is a Python implementation of Neil Larson's DOS-based **PERM Decision Tree Builder**, a tool designed to convert
-# Python Implementation of Neil Larson's PERM Decision Tree Builder
-
 This project is a Python implementation of Neil Larson's DOS-based **PERM Decision Tree Builder**, a tool designed to convert three hierarchical input files into a decision tree or search tree. Originally developed for DOS, PERM used text-based input files created with Larson's MaxThink outliner. This implementation preserves that functionality while allowing the use of any ASCII text editor.
 
 ## Table of Contents
@@ -21,8 +18,8 @@ PERM processes three input files—**Attribute File**, **Category File**, and **
 ## Input Files
 
 ### Attribute File (A)
-The **Attribute File** defines the items and their properties. Below is an example for selecting a beverage:
 
+The **Attribute File** defines the items and their properties. Below is an example for selecting a beverage:
 ```plaintext
 TITLE
     DRINK COKE
