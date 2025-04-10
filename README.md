@@ -145,21 +145,29 @@ Beverage Decision Tree
 graph TD;
     N1["Beverage Decision Tree"];
     N2["PRICE BUYER"];
-    N1 --> N2;
     N3["COST: $0.75"];
-    N2 --> N3;
     N4["COLOR: BROWN"];
-    N3 --> N4;
     N5["DRINK COKE"];
-    N4 --> N5;
     N6["COLOR: TAN"];
-    N3 --> N6;
     N7["DRINK ROOT BEER"];
-    N6 --> N7;
     N8["COST: $0.80"];
-    N2 --> N8;
     N9["DRINK PEPSI"];
-    N8 --> N9;
+    N10["COLOR BUYER"];
+    N4["COLOR: BROWN"];
+    N3["COST: $0.75"];
+    N5["DRINK COKE"];
+    N8["COST: $0.80"];
+    N9["DRINK PEPSI"];
+    N6["COLOR: TAN"];
+    N7["DRINK ROOT BEER"];
+    N11["TASTE BUYER"];
+    N12["TASTE: SWEET"];
+    N7["DRINK ROOT BEER"];
+    N13["TASTE: TART"];
+    N3["COST: $0.75"];
+    N5["DRINK COKE"];
+    N8["COST: $0.80"];
+    N9["DRINK PEPSI"];
 ```
 
 ## Usage
