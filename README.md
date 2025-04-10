@@ -46,7 +46,7 @@ The **Category File** organizes attributes into decision-making categories. It i
 The Category File (B) may also be created using grep as follows:
 
 ```bash
-grep ’^ ’ a | sort -u > b
+grep ’^\t\t’ a | sort -u > b
 ```
 Edit the resulting file (B) to add the questions. Below is an example of a **tab indented** category file:
 
@@ -73,7 +73,7 @@ The **Priority File** defines the order of decision-making criteria for differen
 The Priority File may be created using grep as follows:
 
 ```bash
-grep ’^ [[:alpha:]]’ b | sort -u > c
+grep ’^\t\t[[:alpha:]]’ b | sort -u > c
 ```
 
 Edit the resulting file (C) to organize and prioritize the contents. Below is an example of a **tab indented** priority file:
