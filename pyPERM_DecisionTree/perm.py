@@ -3,12 +3,10 @@
 import sys
 from collections import defaultdict
 
-
 class Item:
     def __init__(self, name):
         self.name = name
         self.attributes = []
-
 
 def parse_attribute_file(content):
     items = []
@@ -30,7 +28,6 @@ def parse_attribute_file(content):
             current_item.attributes.append(full_text)
             all_full_attrs.add(full_text)
     return items, all_full_attrs
-
 
 def parse_category_file(content, items, all_full_attrs):
     full_categories = {}
@@ -64,7 +61,6 @@ def parse_category_file(content, items, all_full_attrs):
                 break
     return full_categories
 
-
 def parse_priority_file(content):
     priorities = {"title": None, "groups": []}
     current_group = None
@@ -82,7 +78,6 @@ def parse_priority_file(content):
         elif indent_level == 2 and current_group:
             current_group["categories"].append(text.strip())
     return priorities
-
 
 def build_decision_tree(items, full_categories, priorities):
     attr_map = defaultdict(list)
@@ -119,15 +114,15 @@ def build_decision_tree(items, full_categories, priorities):
             return [{"attr_value": parent_items[0].name, "sub_branches": []}]
         if not remaining_cats:
             return [{"attr_value": item.name, "sub_branches": []} for item in parent_items]
-
+        
         current_cat = remaining_cats[0]
         sub_values = cat_to_full_values[current_cat]
         sub_branches = []
         seen_values = set()
-
+        
         if not needs_splitting(parent_items, current_cat):
             return build_sub_branches(parent_items, conditions, remaining_cats[1:], top_category)
-
+        
         for full_value in sub_values:
             if full_value in seen_values:
                 continue
@@ -137,20 +132,19 @@ def build_decision_tree(items, full_categories, priorities):
                 sub_branch["sub_branches"] = build_sub_branches(sub_items, conditions | {current_cat: full_value}, remaining_cats[1:], top_category)
                 sub_branches.append(sub_branch)
                 seen_values.add(full_value)
-
-        # Simplify with ELSE: when not top category and branches lead to identical outcomes
+        
         if len(sub_branches) > 1 and current_cat != top_category:
             leaf_counts = defaultdict(list)
             for branch in sub_branches:
                 leaves = get_leaf_items(branch["sub_branches"])
                 leaf_counts[tuple(sorted(leaves))].append(branch)
-
+            
             new_branches = []
             consolidated = set()
             for leaf_tuple, branches in leaf_counts.items():
                 if len(branches) > 1:
                     leaf_set = set(leaf_tuple)
-                    if len(leaf_set) == 1:  # Single item across multiple branches
+                    if len(leaf_set) == 1:
                         item_name = leaf_tuple[0]
                         if item_name not in consolidated:
                             new_branches.append({"attr_value": "ELSE:", "sub_branches": [{"attr_value": item_name, "sub_branches": []}]})
@@ -160,7 +154,7 @@ def build_decision_tree(items, full_categories, priorities):
                 else:
                     new_branches.extend(branches)
             sub_branches = new_branches
-
+        
         if not sub_branches and parent_items:
             return [{"attr_value": item.name, "sub_branches": []} for item in parent_items]
         return sub_branches
@@ -169,7 +163,7 @@ def build_decision_tree(items, full_categories, priorities):
     for group in priorities["groups"]:
         group_tree = {"title": group["title"], "branches": []}
         tree["groups"].append(group_tree)
-
+        
         top_cat = group["categories"][0]
         top_values = cat_to_full_values[top_cat]
         for full_value in top_values:
@@ -181,28 +175,49 @@ def build_decision_tree(items, full_categories, priorities):
 
     return tree
 
+def print_text_output(tree, format="text"):
+    def print_branch(node, indent=0, gemtext_level=0):
+        if format == "text":
+            tabs = "\t" * indent
+            print(f"{tabs}{node['attr_value']}")
+            for sub_branch in node["sub_branches"]:
+                print_branch(sub_branch, indent + 1)
+        elif format == "gemtext":
+            indent_str = "  " * (indent - 1)  # Adjust for Gemtext nesting
+            if indent == 0:  # Shouldn’t happen in branches, but for safety
+                print(f"# {node['attr_value']}")
+            elif indent == 1:  # Top-level branch (e.g., COST: $0.75)
+                print(f"* {node['attr_value']}")
+            else:  # Sub-branches
+                if not node["sub_branches"]:  # Leaf node
+                    print(f"{indent_str}  => gemini://localhost/item/{node['attr_value']} {node['attr_value']}")
+                else:  # Decision point
+                    print(f"{indent_str}* {node['attr_value']}")
+            for sub_branch in node["sub_branches"]:
+                print_branch(sub_branch, indent + 1, gemtext_level)
 
-def print_text_output(tree):
-    def print_branch(node, indent=0):
-        tabs = "\t" * indent
-        print(f"{tabs}{node['attr_value']}")
-        for sub_branch in node["sub_branches"]:
-            print_branch(sub_branch, indent + 1)
-
-    print(f"{tree['title']}")
-    for group in tree["groups"]:
-        print(f"\t{group['title']}")
-        for branch in group["branches"]:
-            print_branch(branch, 2)
-    print()
-
+    if format == "text":
+        print(f"{tree['title']}")
+        for group in tree["groups"]:
+            print(f"\t{group['title']}")
+            for branch in group["branches"]:
+                print_branch(branch, 2)
+        print()
+    elif format == "gemtext":
+        print(f"# {tree['title']}\n")
+        for group in tree["groups"]:
+            print(f"## {group['title']}")
+            for branch in group["branches"]:
+                print_branch(branch, 1, 2)
+            print()
 
 def main():
-    if len(sys.argv) != 4:
-        print("Usage: perm attr_file cat_file pri_file", file=sys.stderr)
+    if len(sys.argv) < 4 or len(sys.argv) > 5:
+        print("Usage: perm attr_file cat_file pri_file [--gemtext]", file=sys.stderr)
         sys.exit(1)
 
     attr_file, cat_file, pri_file = sys.argv[1:4]
+    output_format = "gemtext" if len(sys.argv) == 5 and sys.argv[4] == "--gemtext" else "text"
 
     with open(attr_file, 'r') as f:
         attribute_content = f.read()
@@ -216,8 +231,7 @@ def main():
     priorities = parse_priority_file(priority_content)
 
     tree = build_decision_tree(items, full_categories, priorities)
-    print_text_output(tree)
-
+    print_text_output(tree, format=output_format)
 
 if __name__ == "__main__":
     main()
