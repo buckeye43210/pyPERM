@@ -19,7 +19,7 @@ PERM processes three input files—**Attributes File**, **Category File**, and *
 
 ### Attribute File (A)
 
-The **Attributes File** defines the items and their properties. Below is an example of a **tab indented** attributes file for selecting a beverage:
+The **Attributes File** defines the items and their properties. Below is an example of the **tab indented** attributes file for selecting a beverage:
 ```plaintext
 TITLE
     DRINK COKE
@@ -109,7 +109,7 @@ If using a text editor other than MaxThink, ensure compatibility with indentatio
   cat a.mt | unexpand --tabs=1 > a.otl
   ```
 ## Output Example
-Running `perm A B C > D` generates a **tab indented** output file (`D`) with minimal decision paths:
+Running `perm a b c > d` generates a **tab indented** output file (`d`) with minimal decision paths:
 
 ```plaintext
 Beverage Decision Tree
@@ -142,12 +142,12 @@ Beverage Decision Tree
 - **Result**: A structured tree showing optimal decisions based on buyer priorities.
 
 ## Usage
-1. Prepare the three input files (`A`, `B`, `C`) as described above.
+1. Prepare the three input files (`a`, `b`, `c`) as described above.
 2. Run the program from the command line:
    ```bash
-   perm A B C > D
+   perm a b c > d
    ```
-3. Check the output file (`D`) for the generated decision tree.
+3. Check the output file (`d`) for the generated decision tree.
 
 ## License
-This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License 2.0. See the [LICENSE](https://github.com/buckeye43210/pyPERM_DecisionTree/blob/main/LICENSE) file for details.
