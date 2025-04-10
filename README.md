@@ -70,13 +70,13 @@ TITLE
 ### Priority File (C)
 The **Priority File** defines the order of decision-making criteria for different user types. It is derived from the Category File. 
 
-The Priority File may be created using grep as follows:
+The Priority File may be created using grep and sed as follows:
 
 ```bash
-grep ’^\t\t[[:alpha:]]’ b | sort -u > c
+grep -P ^'\t[[:alpha:]]' b | shuf | sed -e 's/^/\t/' | sed -e '$s/$/\n/' >> c
 ```
 
-Edit the resulting file (C) to organize and prioritize the contents. Below is an example of a **tab indented** priority file:
+Run the command above serveral times and edit the resulting file (C) to organize and prioritize the contents. Below is an example of a **tab indented** priority file:
 
 ```plaintext
 Beverage Decision Tree
