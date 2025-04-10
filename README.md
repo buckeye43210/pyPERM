@@ -46,7 +46,7 @@ The **Category File** organizes attributes into decision-making categories. It i
 The Category File (B) may also be created using grep as follows:
 
 ```bash
-grep ’^\t\t’ a | sort -u > b
+grep -P ^'\t\t’ a | sort -u > b
 ```
 Edit the resulting file (B) to add the questions. Below is an example of a **tab indented** category file:
 
