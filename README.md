@@ -141,6 +141,27 @@ Beverage Decision Tree
 
 - **Result**: A structured tree showing optimal decisions based on buyer priorities.
 
+```mermaid
+graph TD;
+    N1["Beverage Decision Tree"];
+    N2["PRICE BUYER"];
+    N1 --> N2;
+    N3["COST: $0.75"];
+    N2 --> N3;
+    N4["COLOR: BROWN"];
+    N3 --> N4;
+    N5["DRINK COKE"];
+    N4 --> N5;
+    N6["COLOR: TAN"];
+    N3 --> N6;
+    N7["DRINK ROOT BEER"];
+    N6 --> N7;
+    N8["COST: $0.80"];
+    N2 --> N8;
+    N9["DRINK PEPSI"];
+    N8 --> N9;
+```
+
 ## Usage
 1. Prepare the three input files (`a`, `b`, `c`) as described above.
 2. Run the program from the command line:
