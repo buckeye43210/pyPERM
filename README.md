@@ -41,7 +41,14 @@ TITLE
   - Indentation indicates hierarchy (using **tabs**).
 
 ### Category File (B)
-The **Category File** organizes attributes into decision-making categories. It is derived from the Attribute File. Below is an example of a **tab indented** category file:
+The **Category File** organizes attributes into decision-making categories. It is derived from the Attribute File.
+
+The Category File (B) may also be created using grep as follows:
+
+```bash
+grep ’^ ’ a | sort -u > b
+```
+Edit the resulting file (B) to add the questions. Below is an example of a **tab indented** category file:
 
 ```plaintext
 TITLE
@@ -61,7 +68,15 @@ TITLE
   - Must align with attributes defined in the Attributes File.
 
 ### Priority File (C)
-The **Priority File** defines the order of decision-making criteria for different user types. It is derived from the Category File. Blow is an example of a **tab indented** priority file:
+The **Priority File** defines the order of decision-making criteria for different user types. It is derived from the Category File. 
+
+The Priority File may be created using grep as follows:
+
+```bash
+grep ’^ [[:alpha:]]’ b | sort -u > c
+```
+
+Edit the resulting file (C) to organize and prioritize the contents. Below is an example of a **tab indented** priority file:
 
 ```plaintext
 Beverage Decision Tree
